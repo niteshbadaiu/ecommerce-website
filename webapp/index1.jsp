@@ -18,6 +18,7 @@ if(category==null || category.equals("All Products")){
 }else{
 	products=pdao.getProductByCategory(category);
 }
+List<String> categories=pdao.getCategories();
 %>
 <!DOCTYPE html>
 <html>
@@ -28,13 +29,18 @@ if(category==null || category.equals("All Products")){
 <body>
 	<%@include file="includes/navbar.jsp"%>
 	<div class="mainbox" style="display:flex">
-		<div style="width:15%; height:100px">
+		<div class="categorybox" style="width:15%; height:100px">
 			<div class="card-header my-3">Categories</div>
 			<div class="categories" style="width:20%; height:100px">
-				<a href="index1.jsp?id=Footwear">Footwear</a><br>
-				<a href="index1.jsp?id=Bags">Bags</a><br>
-				<a href="index1.jsp?id=Clothes">Clothes</a><br>
-				<a href="index1.jsp?id=Electronics">Electronics</a>
+				
+				<% if(!categories.isEmpty()){
+					for(String s:categories){
+				%>	
+						<a href="index1.jsp?id=<%=s %>"><%=s %></a><br>
+				<% 
+					}
+				}
+				%>
 			</div>
 		</div>
 		<div class="container" style="width:80%; height:100px">
