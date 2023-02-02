@@ -44,7 +44,7 @@ public class ProductDao {
 	public List<Product> getProductByCategory(String category){
 		List<Product> products = new ArrayList<Product>();
 		try {
-			query="select* from products where category=?";
+			query="select * from products where category=?";
 			pst=con.prepareStatement(query);
 			pst.setString(1,category);
 			rs=pst.executeQuery();
@@ -63,6 +63,24 @@ public class ProductDao {
 			e.printStackTrace();
 		}
 		return products;
+	}
+	
+	public List<String> getCategories(){
+		List<String> categories = new ArrayList<String>();
+		try {
+			query="select distinct category from products";
+			pst=con.prepareStatement(query);
+			rs=pst.executeQuery();
+			while(rs.next()) {
+				String category=new String();
+				category=(String) rs.getString("category");
+				categories.add(category);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return categories;
 	}
 	
 	public List<Cart> getCartProducts(ArrayList<Cart> cartList){
